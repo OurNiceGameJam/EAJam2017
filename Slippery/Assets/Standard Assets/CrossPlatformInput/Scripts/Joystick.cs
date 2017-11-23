@@ -16,16 +16,20 @@ namespace UnityStandardAssets.CrossPlatformInput
 
 		public int MovementRange = 100;
 		public AxisOption axesToUse = AxisOption.Both; // The options for the axes that the still will use
-		public string horizontalAxisName = "Horizontal"; // The name given to the horizontal axis for the cross platform input
-		public string verticalAxisName = "Vertical"; // The name given to the vertical axis for the cross platform input
+		public string horizontalAxisName1 = "Horizontal1"; // The name given to the horizontal axis for the cross platform input
+		public string verticalAxisName1 = "Vertical1"; // The name given to the vertical axis for the cross platform input
+        public string horizontalAxisName2 = "Horizontal2"; // The name given to the horizontal axis for the cross platform input
+        public string verticalAxisName2 = "Vertical2"; // The name given to the vertical axis for the cross platform input
 
-		Vector3 m_StartPos;
+        Vector3 m_StartPos;
 		bool m_UseX; // Toggle for using the x axis
 		bool m_UseY; // Toggle for using the Y axis
-		CrossPlatformInputManager.VirtualAxis m_HorizontalVirtualAxis; // Reference to the joystick in the cross platform input
-		CrossPlatformInputManager.VirtualAxis m_VerticalVirtualAxis; // Reference to the joystick in the cross platform input
+		CrossPlatformInputManager.VirtualAxis m_HorizontalVirtualAxis1; // Reference to the joystick in the cross platform input
+		CrossPlatformInputManager.VirtualAxis m_VerticalVirtualAxis1; // Reference to the joystick in the cross platform input
+        CrossPlatformInputManager.VirtualAxis m_HorizontalVirtualAxis2; // Reference to the joystick in the cross platform input
+        CrossPlatformInputManager.VirtualAxis m_VerticalVirtualAxis2; // Reference to the joystick in the cross platform input
 
-		void OnEnable()
+        void OnEnable()
 		{
 			CreateVirtualAxes();
 		}
@@ -42,13 +46,15 @@ namespace UnityStandardAssets.CrossPlatformInput
 			delta /= MovementRange;
 			if (m_UseX)
 			{
-				m_HorizontalVirtualAxis.Update(-delta.x);
-			}
+				m_HorizontalVirtualAxis1.Update(-delta.x);
+                m_HorizontalVirtualAxis2.Update(-delta.x);
+            }
 
 			if (m_UseY)
 			{
-				m_VerticalVirtualAxis.Update(delta.y);
-			}
+				m_VerticalVirtualAxis1.Update(delta.y);
+                m_VerticalVirtualAxis2.Update(delta.y);
+            }
 		}
 
 		void CreateVirtualAxes()
@@ -60,14 +66,18 @@ namespace UnityStandardAssets.CrossPlatformInput
 			// create new axes based on axes to use
 			if (m_UseX)
 			{
-				m_HorizontalVirtualAxis = new CrossPlatformInputManager.VirtualAxis(horizontalAxisName);
-				CrossPlatformInputManager.RegisterVirtualAxis(m_HorizontalVirtualAxis);
-			}
+				m_HorizontalVirtualAxis1 = new CrossPlatformInputManager.VirtualAxis(horizontalAxisName1);
+				CrossPlatformInputManager.RegisterVirtualAxis(m_HorizontalVirtualAxis1);
+                m_HorizontalVirtualAxis2 = new CrossPlatformInputManager.VirtualAxis(horizontalAxisName2);
+                CrossPlatformInputManager.RegisterVirtualAxis(m_HorizontalVirtualAxis2);
+            }
 			if (m_UseY)
 			{
-				m_VerticalVirtualAxis = new CrossPlatformInputManager.VirtualAxis(verticalAxisName);
-				CrossPlatformInputManager.RegisterVirtualAxis(m_VerticalVirtualAxis);
-			}
+				m_VerticalVirtualAxis1 = new CrossPlatformInputManager.VirtualAxis(verticalAxisName1);
+				CrossPlatformInputManager.RegisterVirtualAxis(m_VerticalVirtualAxis1);
+                m_VerticalVirtualAxis2 = new CrossPlatformInputManager.VirtualAxis(verticalAxisName2);
+                CrossPlatformInputManager.RegisterVirtualAxis(m_VerticalVirtualAxis2);
+            }
 		}
 
 
@@ -107,12 +117,14 @@ namespace UnityStandardAssets.CrossPlatformInput
 			// remove the joysticks from the cross platform input
 			if (m_UseX)
 			{
-				m_HorizontalVirtualAxis.Remove();
-			}
+				m_HorizontalVirtualAxis1.Remove();
+                m_HorizontalVirtualAxis2.Remove();
+            }
 			if (m_UseY)
 			{
-				m_VerticalVirtualAxis.Remove();
-			}
+				m_VerticalVirtualAxis1.Remove();
+                m_VerticalVirtualAxis2.Remove();
+            }
 		}
 	}
 }

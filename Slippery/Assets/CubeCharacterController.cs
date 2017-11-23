@@ -13,6 +13,8 @@ public class CubeCharacterController : MonoBehaviour
     public float MinimumVelocity = 1f;
     public float ThresholdImpulse = 1f;
 
+    public int PlayerNumber = 1;
+
     Vector3 m_lastDirection = Vector3.zero;
 
     // Use this for initialization
@@ -25,8 +27,8 @@ public class CubeCharacterController : MonoBehaviour
     private void FixedUpdate()
     {
         // read inputs
-        float h = CrossPlatformInputManager.GetAxis("Horizontal");
-        float v = CrossPlatformInputManager.GetAxis("Vertical");
+        float h = CrossPlatformInputManager.GetAxis("Horizontal" + PlayerNumber.ToString());
+        float v = CrossPlatformInputManager.GetAxis("Vertical" + PlayerNumber.ToString());
 
         // calculate move direction to pass to character
         if (m_Cam != null)
@@ -47,15 +49,17 @@ public class CubeCharacterController : MonoBehaviour
                 m_lastDirection = m_Move.normalized;
         }
 
-        if (m_Rigidbody.velocity.magnitude < MinimumVelocity)
+        if (m_Rigidbody.velocity.magnitude < MinimumVelocity && m_Move.magnitude > Mathf.Epsilon)
         {
-            Debug.Log("MINIMUM ALERT");
-            m_Rigidbody.AddForce(m_lastDirection * ThresholdImpulse, ForceMode.VelocityChange);
+            //Debug.Log("MINIMUM ALERT");
+            m_Rigidbody.AddForce(m_lastDirection * ThresholdImpulse, ForceMode.Impulse);
         }
         else
         {
             m_Rigidbody.AddForce(m_Move * 30, ForceMode.Acceleration);
         }
+
+        //m_Rigidbody.AddForce(m_Move * 30, ForceMode.Acceleration);
 
         Debug.Log("m_Move " + m_Move);
         Debug.Log("m_lastDirection " + m_lastDirection);
