@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
     
@@ -38,6 +39,11 @@ public class GameManager : MonoBehaviour {
             yield return new WaitForSecondsRealtime(1);
             secondsPerRound--;
         }
+
+        if (score[0] != score[1])
+        {
+            EndGame();
+        }
     }
 	
     public void SetNewRound(int loser)
@@ -46,13 +52,11 @@ public class GameManager : MonoBehaviour {
         {
             case 1:
                 Player1.transform.position = m_InitialPos[0];
-                Player1.GetComponent<CubeCharacterController>().m_lastDirection = Vector3.zero;
                 Player1.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 score[1]++;
                 break;
             case 2:
                 Player2.transform.position = m_InitialPos[1];
-                Player2.GetComponent<CubeCharacterController>().m_lastDirection = Vector3.zero;
                 Player2.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 score[0]++;
                 break;
@@ -61,9 +65,19 @@ public class GameManager : MonoBehaviour {
                 break;
         }
 
+        if (secondsPerRound <= 0)
+        {
+            EndGame();
+        }
+
         Player1Score.text = "Score: " + score[0].ToString();
         Player2Score.text = "Score: " + score[1].ToString();
 
         Debug.Log(score[0] + " - " + score[1]);
+    }
+
+    void EndGame()
+    {
+        SceneManager.LoadScene("main");
     }
 }

@@ -5,27 +5,28 @@ using UnityStandardAssets.CrossPlatformInput;
 
 public class CubeCharacterController : MonoBehaviour
 {
-    private Transform m_Cam;                  // A reference to the main camera in the scenes transform
+    public Transform m_Cam;                  // A reference to the main camera in the scenes transform
     private Vector3 m_CamForward;             // The current forward direction of the camera
     private Vector3 m_Move;
     Rigidbody m_Rigidbody;
 
-    #region Powerups
-    float m_SpeedBoostFactor = 1f;    
-#endregion
-
+    public Transform m_arrow;
     public float MinimumVelocity = 1f;
     public float ThresholdImpulse = 1f;
+
+    #region Powerups 
+    float m_SpeedBoostFactor = 1f;
+    public Vector3 m_originalScale;
+    public float m_originalMass;
+    #endregion
 
     public int PlayerNumber = 1;
 
     [System.NonSerialized]
     public Vector3 m_lastDirection = Vector3.zero;
-    public Vector3 m_originalScale;
-    public float m_originalMass;
 
     // Use this for initialization
-    void Start ()
+    void Start()
     {
         m_Rigidbody = GetComponent<Rigidbody>();
         m_originalScale = transform.localScale;
@@ -36,9 +37,16 @@ public class CubeCharacterController : MonoBehaviour
     private void FixedUpdate()
     {
         // read inputs
-        float h = CrossPlatformInputManager.GetAxis("Horizontal" + PlayerNumber.ToString());
-        float v = CrossPlatformInputManager.GetAxis("Vertical" + PlayerNumber.ToString());
+        float h = Input.GetAxis("Horizontal" + PlayerNumber.ToString());
+        float v = Input.GetAxis("Vertical" + PlayerNumber.ToString());
 
+        float rt = Input.GetAxis("Boost" + PlayerNumber.ToString());
+
+        Debug.Log(rt);
+        Vector3 u = v * Vector3.forward;
+        Vector3 l = h * Vector3.right;
+
+        // Debug.Log(h);
         // calculate move direction to pass to character
         if (m_Cam != null)
         {
@@ -57,22 +65,21 @@ public class CubeCharacterController : MonoBehaviour
             if (m_Move.magnitude > Mathf.Epsilon)
                 m_lastDirection = m_Move.normalized;
         }
-
-        if (m_Rigidbody.velocity.magnitude < MinimumVelocity && m_Move.magnitude > Mathf.Epsilon)
-        {
-            m_Rigidbody.AddForce(m_lastDirection * ThresholdImpulse * m_SpeedBoostFactor, ForceMode.Impulse);
-        }
-        else
-        {
-            m_Rigidbody.AddForce(m_Move * 30 * m_SpeedBoostFactor, ForceMode.Acceleration);
-        }
         
+        m_Rigidbody.AddForce(m_Move * 15 + rt * transform.forward * 300, ForceMode.Acceleration);
+        
+        Vector3 pos = transform.position;
+        pos.y = 0;
+        transform.position = pos;
+
+        transform.LookAt(transform.position + (u + l) * 10);
+
     }
 
     public void UsePowerup(Powerup.PowerupType typeOfPowerup)
     {
-        //We should use coroutines in order to remove the efect after a while
-        switch(typeOfPowerup)
+        //We should use coroutines in order to remove the efect after a while 
+        switch (typeOfPowerup)
         {
             case Powerup.PowerupType.SizeDecrease:
                 StartCoroutine(HalfSize());
@@ -109,7 +116,7 @@ public class CubeCharacterController : MonoBehaviour
         m_Rigidbody.mass /= 4;
         transform.localScale /= 2;
     }
-
+ 
     IEnumerator HalfSize()
     {
         transform.localScale /= 2;

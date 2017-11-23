@@ -11,9 +11,9 @@ public class FUBAROnTouch : MonoBehaviour {
         m_Collider = GetComponent<BoxCollider>();
     }
 
-    void OnTriggerEnter(Collider collider)
+    void OnCollisionEnter(Collision collider)
     {
-
-        collider.gameObject.GetComponent<PlayerDestroyAndRespawn>().DestroyAndRespawn();
+        if (collider != null && collider.gameObject != null && collider.gameObject.GetComponent<PlayerDestroyAndRespawn>() != null)
+            collider.gameObject.GetComponent<PlayerDestroyAndRespawn>().DestroyAndRespawn();
     }
 }
