@@ -28,10 +28,11 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             if (target != null)
                 agent.SetDestination(target.position);
 
-            if (agent.remainingDistance > agent.stoppingDistance)
-                character.Move(agent.desiredVelocity, false, false);
-            else
-                character.Move(Vector3.zero, false, false);
+            //GRASANUL: COMMENTED THIS FOR NOW (SHOULD HANDLE DIFFERENTLY IF WE HAVE AI)
+            //if (agent.remainingDistance > agent.stoppingDistance)
+            //    character.Move(agent.desiredVelocity, false, false);
+            //else
+            //    character.Move(Vector3.zero, false, false);
         }
 
 
