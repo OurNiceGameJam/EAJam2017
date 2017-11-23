@@ -60,7 +60,6 @@ public class CubeCharacterController : MonoBehaviour
 
         if (m_Rigidbody.velocity.magnitude < MinimumVelocity && m_Move.magnitude > Mathf.Epsilon)
         {
-            //Debug.Log("MINIMUM ALERT");
             m_Rigidbody.AddForce(m_lastDirection * ThresholdImpulse * m_SpeedBoostFactor, ForceMode.Impulse);
         }
         else
