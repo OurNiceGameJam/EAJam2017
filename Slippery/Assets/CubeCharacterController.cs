@@ -15,7 +15,8 @@ public class CubeCharacterController : MonoBehaviour
 
     public int PlayerNumber = 1;
 
-    Vector3 m_lastDirection = Vector3.zero;
+    [System.NonSerialized]
+    public Vector3 m_lastDirection = Vector3.zero;
 
     // Use this for initialization
     void Start ()

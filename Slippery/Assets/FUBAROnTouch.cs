@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FUBAROnTouch : MonoBehaviour {
-
+    
     private BoxCollider m_Collider = null;
 
     void Start()
@@ -11,9 +11,9 @@ public class FUBAROnTouch : MonoBehaviour {
         m_Collider = GetComponent<BoxCollider>();
     }
 
-    void OnTriggerEnter(Collider collision)
+    void OnTriggerEnter(Collider collider)
     {
-        Debug.Log("Wall Hit: " + collision.gameObject);
-        GameObject.Destroy(collision.gameObject);
+
+        collider.gameObject.GetComponent<PlayerDestroyAndRespawn>().DestroyAndRespawn();
     }
 }
