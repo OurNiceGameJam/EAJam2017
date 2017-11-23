@@ -12,18 +12,33 @@ public class GameManager : MonoBehaviour {
 
     public Text Player1Score;
     public Text Player2Score;
+    public Text TimeInSeconds;
 
     int[] score;
+
+    public int secondsPerRound = 60;
 
     // Use this for initialization
     void Start () {
         score = new int[2];
+
+        StartCoroutine(ProcessTimer());
 
         m_InitialPos = new Vector3[2];
 
         m_InitialPos[0] = Player1.transform.position;
         m_InitialPos[1] = Player2.transform.position;
 	}
+
+    IEnumerator ProcessTimer()
+    {
+        while (secondsPerRound >= 0)
+        {
+            TimeInSeconds.text = secondsPerRound.ToString();
+            yield return new WaitForSecondsRealtime(1);
+            secondsPerRound--;
+        }
+    }
 	
     public void SetNewRound(int loser)
     {
