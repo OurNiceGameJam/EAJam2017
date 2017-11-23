@@ -17,7 +17,8 @@ public class PlayerDestroyAndRespawn : MonoBehaviour {
     public void DestroyAndRespawn()
     {
         //Notify the game manager that this cube fucked up
-        //Debug.Log("Woops: " + gameObject);
+        //    Debug.Log("Woops: " + gameObject);
         m_GameManager.SetNewRound(GetComponent<CubeCharacterController>().PlayerNumber);
+        GetComponent<CubeCharacterController>().ResetPowerupEffects();
     }
 }
