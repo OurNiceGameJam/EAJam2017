@@ -61,8 +61,8 @@ public class CubeCharacterController : MonoBehaviour
 
         //m_Rigidbody.AddForce(m_Move * 30, ForceMode.Acceleration);
 
-        Debug.Log("m_Move " + m_Move);
-        Debug.Log("m_lastDirection " + m_lastDirection);
-        Debug.Log("m_Rigidbody.velocity.magnitude " + m_Rigidbody.velocity.magnitude);
+        //Debug.Log("m_Move " + m_Move);
+        //Debug.Log("m_lastDirection " + m_lastDirection);
+        //Debug.Log("m_Rigidbody.velocity.magnitude " + m_Rigidbody.velocity.magnitude);
     }
 }
