@@ -136,7 +136,7 @@ Transform:
   m_GameObject: {fileID: 1573371959687676}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -0, y: 5.96, z: -0.05}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4622530048142522}
   - {fileID: 4230293204270402}
@@ -184,7 +184,7 @@ MeshRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 82096aab38f01cb40a1cbf8629a810ba, type: 2}
+  - {fileID: 15303, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -412,6 +412,9 @@ MonoBehaviour:
   m_arrow: {fileID: 4615052764087274}
   MinimumVelocity: 3
   ThresholdImpulse: 4
+  m_originalScale: {x: 0, y: 0, z: 0}
+  m_originalMass: 0
+  BoostCooldown: 0
   PlayerNumber: 2
 --- !u!114 &114640833163870842
 MonoBehaviour:

@@ -123,7 +123,7 @@ Transform:
   m_GameObject: {fileID: 1687403721665264}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -0, y: 5.96, z: -0.05}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4989442375940752}
   - {fileID: 4475287546904964}
@@ -412,6 +412,9 @@ MonoBehaviour:
   m_arrow: {fileID: 4356898683925364}
   MinimumVelocity: 3
   ThresholdImpulse: 4
+  m_originalScale: {x: 0, y: 0, z: 0}
+  m_originalMass: 0
+  BoostCooldown: 0
   PlayerNumber: 1
 --- !u!114 &114594343665353240
 MonoBehaviour:

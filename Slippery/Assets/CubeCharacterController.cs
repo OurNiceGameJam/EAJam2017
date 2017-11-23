@@ -20,6 +20,9 @@ public class CubeCharacterController : MonoBehaviour
     public float m_originalMass;
     #endregion
 
+    public float BoostCooldown;
+    bool canUseBoost = true;
+
     public int PlayerNumber = 1;
 
     [System.NonSerialized]
@@ -41,8 +44,7 @@ public class CubeCharacterController : MonoBehaviour
         float v = Input.GetAxis("Vertical" + PlayerNumber.ToString());
 
         float rt = Input.GetAxis("Boost" + PlayerNumber.ToString());
-
-        Debug.Log(rt);
+        
         Vector3 u = v * Vector3.forward;
         Vector3 l = h * Vector3.right;
 
