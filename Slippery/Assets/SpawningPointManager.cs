@@ -8,7 +8,12 @@ public class SpawningPointManager : MonoBehaviour {
     public GameObject[] powerupPrefabs;
 
     public float spawningTime;
-	
+
+    public int MaxGiftsOnfield = 2;
+
+    [System.NonSerialized]
+    public int GiftsOnField = 0;
+
 	// Update is called once per frame
 	void Start () {
         StartCoroutine(SpawnPowerups());
@@ -18,14 +23,19 @@ public class SpawningPointManager : MonoBehaviour {
     {
         while (true)
         {
-            int pos = Random.Range(0, spPoints.Length);
-            int type = Random.Range(1, (int)Powerup.PowerupType.Max);
-            int prefab = Random.Range(0, powerupPrefabs.Length);
+            if (GiftsOnField < MaxGiftsOnfield)
+            {
+                int pos = Random.Range(0, spPoints.Length);
+                int type = Random.Range(1, (int)Powerup.PowerupType.Max);
+                int prefab = Random.Range(0, powerupPrefabs.Length);
 
-            var p = (Instantiate(powerupPrefabs[prefab], spPoints[pos].transform.position, Quaternion.identity) as GameObject).GetComponent<Powerup>();
+                GiftsOnField++;
 
-            p.TypeOfPowerup = (Powerup.PowerupType)type;
+                var p = (Instantiate(powerupPrefabs[prefab], spPoints[pos].transform.position, Quaternion.identity) as GameObject).GetComponent<Powerup>();
 
+                p.powerupManager = this;
+                p.TypeOfPowerup = (Powerup.PowerupType)type;
+            }
             yield return new WaitForSecondsRealtime(spawningTime);
         }
     }

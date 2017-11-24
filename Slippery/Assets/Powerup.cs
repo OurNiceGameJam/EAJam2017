@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Powerup : MonoBehaviour {
 
+    public SpawningPointManager powerupManager;
+
 	public enum PowerupType
     {
         None,
@@ -20,6 +22,7 @@ public class Powerup : MonoBehaviour {
     void OnTriggerEnter(Collider collider)
     {
         collider.gameObject.GetComponent<CubeCharacterController>().SetPowerup(TypeOfPowerup);
+        powerupManager.GiftsOnField--;
         Destroy(gameObject);
     }
 }
