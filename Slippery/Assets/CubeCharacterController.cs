@@ -48,7 +48,15 @@ public class CubeCharacterController : MonoBehaviour
         m_originalMass = m_Rigidbody.mass;
         m_originalRotation = transform.rotation;
 
-        if (PlayerNumber == 2)
+
+        if (PlayerNumber == 1)
+        {
+            foreach (var m in BodyMesh.GetComponentsInChildren<MeshRenderer>())
+            {
+                m.material.SetColor("_Color", Color.red);
+            }
+        }
+        else if (PlayerNumber == 2)
         {
             foreach (var m in BodyMesh.GetComponentsInChildren<MeshRenderer>())
             {

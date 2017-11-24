@@ -1819,8 +1819,9 @@ MonoBehaviour:
   m_originalScale: {x: 0, y: 0, z: 0}
   m_originalMass: 0
   leftTriggerThreshold: 0.5
-  forcePushPower: 200
+  forcePushPower: 1500
   PowerupName: {fileID: 1719378485}
+  m_inputDisabled: 0
   BodyMesh: {fileID: 1150526125}
   otherPlayer: {fileID: 1428743487}
   BoostCooldown: 0
@@ -1971,6 +1972,7 @@ MonoBehaviour:
   - {fileID: 1000014260480130, guid: a4874b582284b594b930fed42c1671be, type: 2}
   - {fileID: 1000011069046000, guid: 8d1e2ccdc236c6c4b91279883231ecf9, type: 2}
   spawningTime: 5
+  MaxGiftsOnfield: 2
 --- !u!4 &1366837918
 Transform:
   m_ObjectHideFlags: 0
@@ -2458,8 +2460,9 @@ MonoBehaviour:
   m_originalScale: {x: 0, y: 0, z: 0}
   m_originalMass: 0
   leftTriggerThreshold: 0.5
-  forcePushPower: 200
+  forcePushPower: 1500
   PowerupName: {fileID: 1418106325}
+  m_inputDisabled: 0
   BodyMesh: {fileID: 1530782849}
   otherPlayer: {fileID: 1346782918}
   BoostCooldown: 0
