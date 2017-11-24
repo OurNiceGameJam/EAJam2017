@@ -20,11 +20,13 @@ public class CubeCharacterController : MonoBehaviour
     float m_SpeedBoostFactor = 1f;
     public Vector3 m_originalScale;
     public float m_originalMass;
+    Quaternion m_originalRotation;
     public float leftTriggerThreshold = 0.5f;
     public float forcePushPower = 20f;
-
     public Text PowerupName;
     #endregion
+
+    public bool m_inputDisabled = false;
 
     public GameObject BodyMesh;
 
@@ -44,6 +46,7 @@ public class CubeCharacterController : MonoBehaviour
         m_Rigidbody = GetComponent<Rigidbody>();
         m_originalScale = transform.localScale;
         m_originalMass = m_Rigidbody.mass;
+        m_originalRotation = transform.rotation;
 
         if (PlayerNumber == 2)
         {
@@ -57,6 +60,11 @@ public class CubeCharacterController : MonoBehaviour
     // Fixed update is called in sync with physics
     private void FixedUpdate()
     {
+        if (m_inputDisabled)
+        {
+            return;
+        }
+
         // read inputs
         float h = Input.GetAxis("Horizontal" + PlayerNumber.ToString());
         float v = Input.GetAxis("Vertical" + PlayerNumber.ToString());
@@ -157,6 +165,10 @@ public class CubeCharacterController : MonoBehaviour
     {
         StopAllCoroutines();
 
+        m_Rigidbody.ResetInertiaTensor();
+        transform.rotation = m_originalRotation;
+        m_inputDisabled = false;
+        SetArrowColor(Color.white);
         m_SpeedBoostFactor = 1f;
         transform.localScale = m_originalScale;
         m_Rigidbody.mass = m_originalMass;
@@ -174,20 +186,23 @@ public class CubeCharacterController : MonoBehaviour
         m_Rigidbody.velocity = Vector3.zero;
     }
 
+    void SetArrowColor (Color color)
+    {
+        foreach (var m in m_arrow.GetComponentsInChildren<MeshRenderer>())
+        {
+            m.material.SetColor("_Color", color);
+        }
+
+    }
+
     IEnumerator ReversedControl()
     {
         m_ReversedControl = true;
-        foreach (var m in m_arrow.GetComponentsInChildren<MeshRenderer>())
-        {
-            m.material.SetColor("_Color", Color.red);
-        }
+        SetArrowColor(Color.red);
 
         yield return new WaitForSecondsRealtime(5);
 
-        foreach (var m in m_arrow.GetComponentsInChildren<MeshRenderer>())
-        {
-            m.material.SetColor("_Color", Color.white);
-        }
+        SetArrowColor(Color.white);
 
         m_ReversedControl = false;
     }

@@ -10,6 +10,8 @@ public class NotifyOnCollisionExit : MonoBehaviour {
         Debug.Log("Collision Exited");
         if (collider != null && collider.gameObject != null && collider.gameObject.GetComponent<Rigidbody>() != null)
         {
+            collider.gameObject.GetComponent<CubeCharacterController>().m_inputDisabled = true;
+            collider.transform.Find("Arrow").gameObject.SetActive(false);
             collider.gameObject.GetComponent<Rigidbody>().constraints &= ~RigidbodyConstraints.FreezePositionY;
             StartCoroutine(Respawn(collider.gameObject.GetComponent<PlayerDestroyAndRespawn>()));
         }
@@ -21,5 +23,7 @@ public class NotifyOnCollisionExit : MonoBehaviour {
         pdar.DestroyAndRespawn();
 
         pdar.gameObject.GetComponent<Rigidbody>().constraints |= RigidbodyConstraints.FreezePositionY;
+
+        pdar.transform.Find("Arrow").gameObject.SetActive(true);
     }
 }
