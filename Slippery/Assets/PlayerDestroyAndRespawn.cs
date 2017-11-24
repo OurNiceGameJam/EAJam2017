@@ -8,6 +8,7 @@ public class PlayerDestroyAndRespawn : MonoBehaviour {
 
     void Start()
     {
+       
         if (m_GameManager == null)
         {
             Debug.LogError("GameManager is null!");
