@@ -96,8 +96,8 @@ InputManager:
     gravity: 3
     dead: 0.15
     sensitivity: 1
-    snap: 0
-    invert: 0
+    snap: 1
+    invert: 1
     type: 2
     axis: 1
     joyNum: 2
