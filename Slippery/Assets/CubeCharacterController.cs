@@ -78,15 +78,11 @@ public class CubeCharacterController : MonoBehaviour
         }
         
         m_Rigidbody.AddForce(m_Move * 15 + rt * transform.forward * 300 * m_SpeedBoostFactor, ForceMode.Acceleration);
-        
-        Vector3 pos = transform.position;
-        pos.y = 0;
-        transform.position = pos;
 
         transform.LookAt(transform.position + (u + l) * 10);
-
+        
         if (aButton >= leftTriggerThreshold)
-            UsePowerup(Powerup.PowerupType.ForcePush);
+            UsePowerup(m_CurrentPowerup);
     }
 
     public void SetPowerup(Powerup.PowerupType powerup)
