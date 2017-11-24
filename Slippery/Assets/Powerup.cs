@@ -6,17 +6,19 @@ public class Powerup : MonoBehaviour {
 
 	public enum PowerupType
     {
+        None,
         SpeedIncrease,
         SpeedDecrease,
         SizeIncrease,
-        SizeDecrease
+        SizeDecrease,
+        Max
     };
 
     public PowerupType TypeOfPowerup;
 
     void OnTriggerEnter(Collider collider)
     {
-        collider.gameObject.GetComponent<CubeCharacterController>().UsePowerup(TypeOfPowerup);
+        collider.gameObject.GetComponent<CubeCharacterController>().SetPowerup(TypeOfPowerup);
         Destroy(gameObject);
     }
 }

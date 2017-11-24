@@ -18,29 +18,12 @@ public class SpawningPointManager : MonoBehaviour {
     {
         while (true)
         {
-            int pos = Random.Range(0, 10);
-            int type = Random.Range(0, 4);
+            int pos = Random.Range(0, spPoints.Length);
+            int type = Random.Range(1, (int)Powerup.PowerupType.Max);
 
             var p = (Instantiate(powerupPrefab, spPoints[pos].transform.position, Quaternion.identity) as GameObject).GetComponent<Powerup>();
 
-            switch (type)
-            {
-                case 0:
-                    p.TypeOfPowerup = Powerup.PowerupType.SizeDecrease;
-                    break;
-                case 1:
-                    p.TypeOfPowerup = Powerup.PowerupType.SizeIncrease;
-                    break;
-                case 2:
-                    p.TypeOfPowerup = Powerup.PowerupType.SpeedDecrease;
-                    break;
-                case 3:
-                    p.TypeOfPowerup = Powerup.PowerupType.SpeedIncrease;
-                    break;
-                default:
-                    Debug.LogError("FUCKED UP!");
-                    break;
-            }
+            p.TypeOfPowerup = (Powerup.PowerupType)type;
 
             yield return new WaitForSecondsRealtime(spawningTime);
         }
