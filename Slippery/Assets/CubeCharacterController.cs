@@ -42,6 +42,11 @@ public class CubeCharacterController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        foreach (var s in Input.GetJoystickNames())
+        {
+            Debug.Log(s);
+        }
+
         SetPowerup(Powerup.PowerupType.None);
         m_Rigidbody = GetComponent<Rigidbody>();
         m_originalScale = transform.localScale;
@@ -85,7 +90,9 @@ public class CubeCharacterController : MonoBehaviour
 
         float rt = Input.GetAxis("Boost" + PlayerNumber.ToString());
         float aButton = Input.GetAxis("Powerup" + PlayerNumber.ToString());
-        
+
+        //Debug.Log(rt + " - " + aButton);
+
         Vector3 u = v * Vector3.forward;
         Vector3 l = h * Vector3.right;
 

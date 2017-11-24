@@ -177,6 +177,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &158811706 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1000012999181982, guid: 2965b439004fa8c48a8dd6736c4eab68,
+    type: 2}
+  m_PrefabInternal: {fileID: 1346782917}
 --- !u!1 &269378596
 GameObject:
   m_ObjectHideFlags: 0
@@ -1380,11 +1385,6 @@ RectTransform:
   m_PrefabParentObject: {fileID: 22409990, guid: 81154777d5417884981849c5243f6c01,
     type: 2}
   m_PrefabInternal: {fileID: 499584528}
---- !u!1 &1150526125 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1000014216674834, guid: 2965b439004fa8c48a8dd6736c4eab68,
-    type: 2}
-  m_PrefabInternal: {fileID: 1346782917}
 --- !u!1 &1195552242
 GameObject:
   m_ObjectHideFlags: 0
@@ -1761,6 +1761,10 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1000011417104946, guid: 2965b439004fa8c48a8dd6736c4eab68, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2965b439004fa8c48a8dd6736c4eab68, type: 2}
   m_IsPrefabParent: 0
@@ -1822,7 +1826,7 @@ MonoBehaviour:
   forcePushPower: 1500
   PowerupName: {fileID: 1719378485}
   m_inputDisabled: 0
-  BodyMesh: {fileID: 1150526125}
+  BodyMesh: {fileID: 158811706}
   otherPlayer: {fileID: 1428743487}
   BoostCooldown: 0
   PlayerNumber: 1
@@ -2413,6 +2417,10 @@ Prefab:
     - target: {fileID: 1000014216674834, guid: 2965b439004fa8c48a8dd6736c4eab68, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000011417104946, guid: 2965b439004fa8c48a8dd6736c4eab68, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2965b439004fa8c48a8dd6736c4eab68, type: 2}

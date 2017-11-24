@@ -21,6 +21,7 @@ public class Powerup : MonoBehaviour {
 
     void OnTriggerEnter(Collider collider)
     {
+        if (collider != null && collider.gameObject != null && collider.gameObject.GetComponent<CubeCharacterController>())
         collider.gameObject.GetComponent<CubeCharacterController>().SetPowerup(TypeOfPowerup);
         powerupManager.GiftsOnField--;
         Destroy(gameObject);
