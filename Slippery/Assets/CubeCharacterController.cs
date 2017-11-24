@@ -16,13 +16,17 @@ public class CubeCharacterController : MonoBehaviour
     public float ThresholdImpulse = 1f;
 
     #region Powerups 
+    bool m_ReversedControl = false;
     float m_SpeedBoostFactor = 1f;
     public Vector3 m_originalScale;
     public float m_originalMass;
     public float leftTriggerThreshold = 0.5f;
+    public float forcePushPower = 20f;
 
     public Text PowerupName;
     #endregion
+
+    public GameObject otherPlayer;
 
     public float BoostCooldown;
     bool canUseBoost = true;
@@ -47,6 +51,12 @@ public class CubeCharacterController : MonoBehaviour
         float h = Input.GetAxis("Horizontal" + PlayerNumber.ToString());
         float v = Input.GetAxis("Vertical" + PlayerNumber.ToString());
 
+        if (m_ReversedControl)
+        {
+            h *= -1f;
+            v *= -1f;
+        }
+
         float rt = Input.GetAxis("Boost" + PlayerNumber.ToString());
         float aButton = Input.GetAxis("Powerup" + PlayerNumber.ToString());
         
@@ -67,7 +77,7 @@ public class CubeCharacterController : MonoBehaviour
             m_Move = v * Vector3.forward + h * Vector3.right;
         }
         
-        m_Rigidbody.AddForce(m_Move * 15 + rt * transform.forward * 300, ForceMode.Acceleration);
+        m_Rigidbody.AddForce(m_Move * 15 + rt * transform.forward * 300 * m_SpeedBoostFactor, ForceMode.Acceleration);
         
         Vector3 pos = transform.position;
         pos.y = 0;
@@ -76,7 +86,7 @@ public class CubeCharacterController : MonoBehaviour
         transform.LookAt(transform.position + (u + l) * 10);
 
         if (aButton >= leftTriggerThreshold)
-            UsePowerup(m_CurrentPowerup);
+            UsePowerup(Powerup.PowerupType.ForcePush);
     }
 
     public void SetPowerup(Powerup.PowerupType powerup)
@@ -94,11 +104,14 @@ public class CubeCharacterController : MonoBehaviour
             case Powerup.PowerupType.SizeIncrease:
                 PowerupName.text = "Size Increase";
                 break;
-            case Powerup.PowerupType.SpeedDecrease:
-                PowerupName.text = "Speed Decrease";
+            case Powerup.PowerupType.ForcePush:
+                PowerupName.text = "Force Push";
                 break;
-            case Powerup.PowerupType.SpeedIncrease:
-                PowerupName.text = "Speed Increase";
+            case Powerup.PowerupType.InstantBreak:
+                PowerupName.text = "Instant Break";
+                break;
+            case Powerup.PowerupType.ReversedControl:
+                UsePowerup(Powerup.PowerupType.ReversedControl);
                 break;
         }
 
@@ -117,11 +130,14 @@ public class CubeCharacterController : MonoBehaviour
             case Powerup.PowerupType.SizeIncrease:
                 StartCoroutine(DoubleSize());
                 break;
-            case Powerup.PowerupType.SpeedDecrease:
-                StartCoroutine(HalfSpeed());
+            case Powerup.PowerupType.InstantBreak:
+                InstantBreak();
                 break;
-            case Powerup.PowerupType.SpeedIncrease:
-                StartCoroutine(DoubleSpeed());
+            case Powerup.PowerupType.ReversedControl:
+                StartCoroutine(ReversedControl());
+                break;
+            case Powerup.PowerupType.ForcePush:
+                ForcePush();
                 break;
             default:
                 Debug.LogError("PowerType: " + typeOfPowerup + " not handled");
@@ -130,7 +146,7 @@ public class CubeCharacterController : MonoBehaviour
 
         SetPowerup(Powerup.PowerupType.None);
     }
-
+    
     public void ResetPowerupEffects()
     {
         StopAllCoroutines();
@@ -138,37 +154,46 @@ public class CubeCharacterController : MonoBehaviour
         m_SpeedBoostFactor = 1f;
         transform.localScale = m_originalScale;
         m_Rigidbody.mass = m_originalMass;
+        m_ReversedControl = false;
+    }
+
+    void ForcePush()
+    {
+        Vector3 oppositeDirectionVector = otherPlayer.transform.position - transform.position;
+        otherPlayer.GetComponent<Rigidbody>().AddForce(oppositeDirectionVector.normalized * forcePushPower, ForceMode.Impulse);
+    }
+
+    void InstantBreak()
+    {
+        m_Rigidbody.velocity = Vector3.zero;
+    }
+
+    IEnumerator ReversedControl()
+    {
+        m_ReversedControl = true;
+        yield return new WaitForSecondsRealtime(5);
+        m_ReversedControl = false;
     }
 
     IEnumerator DoubleSize()
     {
         transform.localScale *= 2;
         m_Rigidbody.mass *= 4;
+        m_SpeedBoostFactor *= 0.8f;
         yield return new WaitForSecondsRealtime(5);
         m_Rigidbody.mass /= 4;
         transform.localScale /= 2;
+        m_SpeedBoostFactor /= 0.8f;
     }
  
     IEnumerator HalfSize()
     {
         transform.localScale /= 2;
         m_Rigidbody.mass /= 2;
+        m_SpeedBoostFactor *= 1.2f;
         yield return new WaitForSecondsRealtime(5);
         m_Rigidbody.mass *= 2;
         transform.localScale *= 2;
-    }
-
-    IEnumerator DoubleSpeed()
-    {
-        m_SpeedBoostFactor = 2f;
-        yield return new WaitForSecondsRealtime(5);
-        m_SpeedBoostFactor = 1f;
-    }
-
-    IEnumerator HalfSpeed()
-    {
-        m_SpeedBoostFactor = 0.5f;
-        yield return new WaitForSecondsRealtime(5);
-        m_SpeedBoostFactor = 1f;
+        m_SpeedBoostFactor /= 1.2f;
     }
 }

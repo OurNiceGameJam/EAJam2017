@@ -7,10 +7,11 @@ public class Powerup : MonoBehaviour {
 	public enum PowerupType
     {
         None,
-        SpeedIncrease,
-        SpeedDecrease,
         SizeIncrease,
         SizeDecrease,
+        InstantBreak,
+        ReversedControl,
+        ForcePush,
         Max
     };
 
