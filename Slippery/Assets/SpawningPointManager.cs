@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpawningPointManager : MonoBehaviour {
 
     public GameObject[] spPoints;
-    public GameObject powerupPrefab;
+    public GameObject[] powerupPrefabs;
 
     public float spawningTime;
 	
@@ -20,8 +20,9 @@ public class SpawningPointManager : MonoBehaviour {
         {
             int pos = Random.Range(0, spPoints.Length);
             int type = Random.Range(1, (int)Powerup.PowerupType.Max);
+            int prefab = Random.Range(0, powerupPrefabs.Length);
 
-            var p = (Instantiate(powerupPrefab, spPoints[pos].transform.position, Quaternion.identity) as GameObject).GetComponent<Powerup>();
+            var p = (Instantiate(powerupPrefabs[prefab], spPoints[pos].transform.position, Quaternion.identity) as GameObject).GetComponent<Powerup>();
 
             p.TypeOfPowerup = (Powerup.PowerupType)type;
 
