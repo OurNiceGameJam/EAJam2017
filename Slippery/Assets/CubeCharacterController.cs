@@ -26,6 +26,8 @@ public class CubeCharacterController : MonoBehaviour
     public Text PowerupName;
     #endregion
 
+    public GameObject BodyMesh;
+
     public GameObject otherPlayer;
 
     public float BoostCooldown;
@@ -42,6 +44,14 @@ public class CubeCharacterController : MonoBehaviour
         m_Rigidbody = GetComponent<Rigidbody>();
         m_originalScale = transform.localScale;
         m_originalMass = m_Rigidbody.mass;
+
+        if (PlayerNumber == 2)
+        {
+            foreach (var m in BodyMesh.GetComponentsInChildren<MeshRenderer>())
+            {
+                m.material.SetColor("_Color", Color.blue);
+            }
+        }
     }
 
     // Fixed update is called in sync with physics
@@ -167,7 +177,18 @@ public class CubeCharacterController : MonoBehaviour
     IEnumerator ReversedControl()
     {
         m_ReversedControl = true;
+        foreach (var m in m_arrow.GetComponentsInChildren<MeshRenderer>())
+        {
+            m.material.SetColor("_Color", Color.red);
+        }
+
         yield return new WaitForSecondsRealtime(5);
+
+        foreach (var m in m_arrow.GetComponentsInChildren<MeshRenderer>())
+        {
+            m.material.SetColor("_Color", Color.white);
+        }
+
         m_ReversedControl = false;
     }
 

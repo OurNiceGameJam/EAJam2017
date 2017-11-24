@@ -17,7 +17,7 @@ public class NotifyOnCollisionExit : MonoBehaviour {
 
     IEnumerator Respawn(PlayerDestroyAndRespawn pdar)
     {
-        yield return new WaitForSecondsRealtime(2);
+        yield return new WaitForSecondsRealtime(1);
         pdar.DestroyAndRespawn();
 
         pdar.gameObject.GetComponent<Rigidbody>().constraints |= RigidbodyConstraints.FreezePositionY;
