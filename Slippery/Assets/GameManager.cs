@@ -27,6 +27,12 @@ public class GameManager : MonoBehaviour {
         m_InitialPos[1] = Player2.transform.position;
 	}
 	
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            EndGame();
+    }
+
     public void SetNewRound(int loser)
     {
         switch (loser)

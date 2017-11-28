@@ -12,7 +12,7 @@ public class Powerup : MonoBehaviour {
         SizeIncrease,
         SizeDecrease,
         InstantBreak,
-        ReversedControl,
+        //ReversedControl,
         ForcePush,
         Max
     };

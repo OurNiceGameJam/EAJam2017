@@ -47,6 +47,8 @@ public class CubeCharacterController : MonoBehaviour
             Debug.Log(s);
         }
 
+        SetArrowColor(Color.green);
+
         SetPowerup(Powerup.PowerupType.None);
         m_Rigidbody = GetComponent<Rigidbody>();
         m_originalScale = transform.localScale;
@@ -137,11 +139,11 @@ public class CubeCharacterController : MonoBehaviour
                 PowerupName.text = "Force Push";
                 break;
             case Powerup.PowerupType.InstantBreak:
-                PowerupName.text = "Instant Break";
+                PowerupName.text = "Instant Brake";
                 break;
-            case Powerup.PowerupType.ReversedControl:
-                UsePowerup(Powerup.PowerupType.ReversedControl);
-                break;
+            //case Powerup.PowerupType.ReversedControl:
+            //    UsePowerup(Powerup.PowerupType.ReversedControl);
+            //    break;
         }
 
     }
@@ -162,9 +164,9 @@ public class CubeCharacterController : MonoBehaviour
             case Powerup.PowerupType.InstantBreak:
                 InstantBreak();
                 break;
-            case Powerup.PowerupType.ReversedControl:
-                StartCoroutine(ReversedControl());
-                break;
+            //case Powerup.PowerupType.ReversedControl:
+            //    StartCoroutine(ReversedControl());
+            //    break;
             case Powerup.PowerupType.ForcePush:
                 ForcePush();
                 break;
@@ -183,7 +185,7 @@ public class CubeCharacterController : MonoBehaviour
         m_Rigidbody.ResetInertiaTensor();
         transform.rotation = m_originalRotation;
         m_inputDisabled = false;
-        SetArrowColor(Color.white);
+        SetArrowColor(Color.green);
         m_SpeedBoostFactor = 1f;
         transform.localScale = m_originalScale;
         m_Rigidbody.mass = m_originalMass;
